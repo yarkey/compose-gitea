@@ -1,0 +1,23 @@
+services:
+  gitea:
+    image: gitea/gitea:1.18.3
+    container_name: gitea
+    restart: unless-stopped
+    environment:
+      USER_UID: 1000
+      USER_GID: 1000
+      GITEA__server__APP_DATA_PATH: /data/gitea
+      GITEA__server__DOMAIN: localhost
+#      GITEA__server__HTTP_PORT: 8880
+      GITEA__server__ROOT_URL: http://YourIP:8880/
+    volumes:
+      - gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8880:3000
+      - 2222:22
+
+volumes:
+  gitea:
+    external: true
